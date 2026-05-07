@@ -1,0 +1,6 @@
+body{
+    font-family: "Main", Helvetica, sans-serif;
+    color: var(--text);
+    background: linear-gradient(135deg, var(--bg), #090512 45%, var(--bg2));
+    overflow-x: hidden;
+}
