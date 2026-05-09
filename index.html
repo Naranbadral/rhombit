@@ -1,97 +1,44 @@
 <!DOCTYPE html>
 <html lang="mn">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Rhombit Custom Demo</title>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rhombit 8A | Rhombit</title>
+    <style>
+        @font-face {
+            font-family: "Main";
+            src: url("Font - Header.ttf");
+            font-display: swap;
+        }
 
-
-        <style>
-            @font-face {
-                font-family: "Main";
-                src: url(Font\ -\ Header.ttf);
-            }
         :root {
-            --bg: #05030b;  
+            --bg: #05030b;
             --bg2: #12091f;
-            --panel: rgba(12, 10, 26, 0.8);
-            --line: rgba(255, 255, 255, 0.12);
-            --text: #f6f7ff;
+            --panel: rgba(15, 13, 32, 0.78);
+            --panel-strong: rgba(25, 21, 52, 0.88);
+            --line: rgba(255, 255, 255, 0.14);
+            --text: #f8f7ff;
             --muted: #c9d0ef;
             --cyan: #49e3ff;
             --purple: #8f5bff;
             --pink: #ff46c8;
             --yellow: #ffd55a;
             --green: #68ff9a;
-            --red: #ff697e;
         }
 
-
-        * {
-            box-sizing: border-box;
-        }
-
-
-        html,
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             margin: 0;
-            padding: 0;
-        }
-
-
-        body {
-            font-family: "Main", Helvetica, sans-serif;
+            font-family: "Main", Arial, Helvetica, sans-serif;
             color: var(--text);
             background: linear-gradient(135deg, var(--bg), #090512 45%, var(--bg2));
             overflow-x: hidden;
         }
 
-
-        .video-bg,
-        .video-overlay,
-        .noise,
-        .glow {
-            position: fixed;
-            inset: 0;
-        }
-
-
-        .video-bg {
-            z-index: -4;
-        }
-
-
-        .video-overlay {
-            z-index: -3;
-            background:
-            radial-gradient(circle at 20% 20%, rgba(73, 227, 255, 0.12), transparent 22%),
-            radial-gradient(circle at 80% 10%, rgba(255, 70, 200, 0.14), transparent 18%),
-            linear-gradient(to bottom, rgba(4, 2, 8, 0.55), rgba(4, 2, 8, 0.82));
-        }
-
-
-        .noise {
-            z-index: -2;
-            opacity: 0.14;
-            background-image:
-            linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-
-
-        .glow {
-            z-index: -1;
-            background:
-            radial-gradient(circle at 15% 15%, rgba(73, 227, 255, 0.16), transparent 20%),
-            radial-gradient(circle at 85% 18%, rgba(255, 70, 200, 0.14), transparent 18%),
-            radial-gradient(circle at 50% 75%, rgba(58, 51, 71, 0.16), transparent 24%);
-            filter: blur(14px);
-            animation: floatGlow 10s ease-in-out infinite alternate;
-        }
-
-
-        .video-bg video {
+        .video-bg, .video-overlay, .noise, .glow { position: fixed; inset: 0; }
+        .video-bg { z-index: -4; }
+        .video-bg iframe {
             width: 100vw;
             height: 56.25vw;
             min-height: 100vh;
@@ -101,418 +48,415 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(1.18);
             pointer-events: none;
-            filter: blur(1.2px) saturate(1.12) brightness(0.28);
+            filter: blur(1.3px) saturate(1.12) brightness(0.25);
+        }
+        .video-overlay {
+            z-index: -3;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(73, 227, 255, 0.13), transparent 24%),
+                radial-gradient(circle at 80% 10%, rgba(255, 70, 200, 0.15), transparent 20%),
+                linear-gradient(to bottom, rgba(4, 2, 8, 0.55), rgba(4, 2, 8, 0.86));
+        }
+        .noise {
+            z-index: -2;
+            opacity: 0.12;
+            background-image:
+                linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .glow {
+            z-index: -1;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(73, 227, 255, 0.18), transparent 20%),
+                radial-gradient(circle at 85% 18%, rgba(255, 70, 200, 0.16), transparent 18%),
+                radial-gradient(circle at 50% 75%, rgba(143, 91, 255, 0.18), transparent 26%);
+            filter: blur(14px);
+            animation: floatGlow 10s ease-in-out infinite alternate;
+        }
+        @keyframes floatGlow { from { transform: translateY(-8px); } to { transform: translateY(14px); } }
+
+        a { color: inherit; text-decoration: none; }
+        p { color: var(--muted); line-height: 1.75; }
+        h1, h2, h3 { margin: 0 0 12px; }
+
+        .container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+        .card {
+            border: 1px solid var(--line);
+            background: var(--panel);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            box-shadow: 0 20px 55px rgba(0,0,0,.28);
         }
 
-
-        @keyframes floatGlow {
-            from { transform: translateY(-8px); }
-            to   { transform: translateY(14px); }
-        }
-
-
-        .start-screen,
-        .winner-screen {
-            position: fixed;
-            inset: 0;
+        .topbar {
+            position: sticky;
+            top: 16px;
+            z-index: 10;
+            margin-top: 16px;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background: rgba(3, 2, 8, 0.82);
-            backdrop-filter: blur(10px);
-            z-index: 50;
+            justify-content: space-between;
+            gap: 18px;
+        }
+        .brand { display: flex; align-items: center; gap: 14px; }
+        .logo {
+            max-width: 220px;
+            width: 45vw;
+            height: auto;
+            object-fit: contain;
+        }
+        .fallback-logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            background: rgb(0, 0, 70.1003);
+            font-weight: 900;
+        }
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        nav a {
+            display: block;
+            padding: 10px 13px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            color: var(--muted);
+            transition: .25s ease;
+        }
+        nav a:hover {
+            color: #fff;
+            border-color: rgba(255,255,255,.18);
+            background: rgba(255,255,255,.07);
         }
 
+        .hero {
+            min-height: calc(100vh - 110px);
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            align-items: center;
+            gap: 26px;
+            padding: 54px 0 34px;
+        }
+        .hero-copy { padding: 36px; }
         .mini-tag {
-            display: inline-block;
-            margin-bottom: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
             padding: 8px 14px;
             border-radius: 999px;
-            border: 1px solid rgba(73, 227, 255, 0.3);
-            background: rgba(73, 227, 255, 0.1);
+            border: 1px solid rgba(73,227,255,.3);
+            background: rgba(73,227,255,.1);
             color: #aaf3ff;
-            font-size: 0.9rem;
+            font-size: .92rem;
         }
-
-
-        h1,
-        h2,
-        h3 {
-            margin: 0 0 12px;
-        }
-
-
         .main-title {
-            font-size: clamp(2.2rem, 6vw, 5rem);
-            line-height: 1.05;
-            margin-bottom: 12px;
-            text-shadow: 0 0 24px rgba(73, 227, 255, 0.24);
+            font-size: clamp(2.45rem, 6vw, 5.4rem);
+            line-height: 1.02;
+            text-shadow: 0 0 24px rgba(73,227,255,.25);
         }
-
-
         .gradient {
-            background: linear-gradient(90deg, #fff, #91edff 30%, #c6b7ff 65%, #ff91e7);
+            background: linear-gradient(90deg, #14006e, #0011ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-
-
-        .lead {
-            max-width: 680px;
-            margin: 0 auto 18px;
-            color: var(--muted);
-            line-height: 1.75;
-        }
-
-
-        .feature-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 18px;
-        }
-
-
-        .pill {
-            padding: 10px 14px;
-            border-radius: 999px;
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.05);
-            font-size: 0.95rem;
-        }
-
-
-        button,
+        .lead { font-size: 1.08rem; max-width: 720px; }
+        .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
         .btn {
-            appearance: none;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
-            padding: 14px 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 13px 18px;
             border-radius: 16px;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #fff;
-            transition: transform 0.25s, opacity 0.25s, box-shadow 0.25s;
+            font-weight: 800;
+            transition: .25s ease;
         }
+        .btn:hover { transform: translateY(-2px); }
+        .primary { background: linear-gradient(135deg, var(--purple), var(--pink)); box-shadow: 0 12px 30px rgba(143,91,255,.35); }
+        .ghost { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16); }
 
-
-        button:hover,
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-
-        .primary {
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            box-shadow: 0 12px 30px rgba(143, 91, 255, 0.35);
-        }
-
-
-        .ghost {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-        }
-
-
-        .page {
-            position: relative;
-            z-index: 2;
-        }
-
-
-        .card {
-            padding: 24px;
-            border-radius: 26px;
-            background: var(--panel);
-            margin: 20px;
-            border: 1px solid var(--line);
-            backdrop-filter: blur(8px);
-            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
-        }
-
-
-        .small {
-            font-size: 0.95rem;
-            color: var(--muted);
-        }
-
-
-        header {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 24px;
-        }
-
-
-        .hero {
-            width: min(1180px, 100%);
-            margin: 0 auto;
+        .hero-art { padding: 28px; min-height: 420px; display: grid; place-items: center; }
+        .dance-pad {
+            width: min(420px, 90%);
+            aspect-ratio: 1;
             display: grid;
-            grid-template-columns: 1.08fr 0.92fr;
-            gap: 24px;
-            align-items: center;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 14px;
+            transform: perspective(700px) rotateX(12deg) rotateZ(-3deg);
         }
-
-
-        section {
-            width: min(1180px, calc(100% - 32px));
-            margin: 0 auto 28px;
-        }
-
-
-        .section-head {
-            margin-bottom: 18px;
-        }
-
-
-        .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-        }
-
-
-        .section-sub {
-            max-width: 800px;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-
-        .grid-2,
-        .grid-3,
-        .team {
+        .tile {
+            border-radius: 22px;
+            border: 1px solid rgba(255,255,255,.16);
+            background: rgba(255,255,255,.07);
             display: grid;
-            gap: 18px;
+            place-items: center;
+            font-size: 2.3rem;
+            box-shadow: inset 0 0 18px rgba(255,255,255,.05), 0 18px 28px rgba(0,0,0,.25);
         }
+        .tile.active { background: linear-gradient(135deg, rgba(73,227,255,.24), rgba(255,70,200,.24)); animation: pulse 1.6s infinite; }
+        .tile.blank { opacity: .25; }
+        @keyframes pulse { 50% { transform: scale(1.05); box-shadow: 0 0 32px rgba(73,227,255,.25); } }
 
-
-        .grid-2 {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+        section { padding: 42px 0; }
+        .section-head { margin-bottom: 20px; }
+        .section-title { font-size: clamp(1.8rem, 4vw, 3rem); }
+        .section-sub { max-width: 850px; }
+        .grid-2, .grid-3, .grid-4 { display: grid; gap: 18px; }
+        .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+        .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+        .grid-4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+        .info-card { padding: 24px; transition: .25s ease; }
+        .info-card:hover { transform: translateY(-4px); border-color: rgba(73,227,255,.35); }
+        .icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 14px;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.12);
+            font-size: 1.35rem;
         }
-
-
-        .grid-3 {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+        .steps { counter-reset: step; }
+        .step { position: relative; padding-left: 60px; }
+        .step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 22px;
+            top: 24px;
+            width: 30px;
+            height: 30px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            color: #060313;
+            font-weight: 900;
         }
-
-
-        .team {
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+        .layer-list { display: grid; gap: 12px; margin-top: 16px; }
+        .layer {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(255,255,255,.06);
+            border-left: 4px solid var(--cyan);
         }
-
-
-        .member {
-            text-align: center;
-            transition: all 0.5s;
+        .code-box {
+            margin-top: 14px;
+            padding: 18px;
+            border-radius: 18px;
+            background: rgba(0,0,0,.35);
+            border: 1px solid rgba(255,255,255,.12);
+            overflow-x: auto;
+            color: #dffcff;
+            font-family: Consolas, monospace;
+            line-height: 1.6;
         }
-
-        .member:hover{
-            border: 1px solid white;
-        }
-
-
+        .member { padding: 24px; text-align: center; }
         .avatar {
-            width: 98px;
-            height: 98px;
+            width: 88px;
+            height: 88px;
             margin: 0 auto 14px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
+            display: grid;
+            place-items: center;
+            font-size: 1.8rem;
             font-weight: 900;
-            background: linear-gradient(135deg, rgba(73, 227, 255, 0.22), rgba(255, 70, 200, 0.22));
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: linear-gradient(135deg, rgba(73,227,255,.26), rgba(255,70,200,.26));
+            border: 1px solid rgba(255,255,255,.15);
         }
-
-        .s2 { 
-            animation-delay: 0.8s; 
-        }
-        .s3 { 
-            animation-delay: 1.6s; 
-        }
-
+        .role { color: var(--muted); line-height: 1.65; }
+        .highlight { color: #fff; font-weight: 800; }
+        footer { padding: 34px 0 50px; text-align: center; color: var(--muted); }
 
         @media (max-width: 980px) {
-            .hero,
-            .grid-2,
-            .grid-3,
-            .team {
-                grid-template-columns: 1fr;
-            }
+            .topbar, .hero { grid-template-columns: 1fr; }
+            .topbar { position: relative; top: 0; align-items: flex-start; }
+            .hero { padding-top: 28px; }
+            .hero-copy { padding: 26px; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            nav ul { justify-content: flex-start; }
+        }
+        @media (max-width: 560px) {
+            .container { width: min(100% - 22px, 1180px); }
+            .hero-copy, .hero-art, .info-card, .member { padding: 20px; }
+            .dance-pad { gap: 9px; }
+            .tile { border-radius: 16px; font-size: 1.55rem; }
+        }
+        .member{
+            transition: all 0.4s;
+        }
+        .member:hover{
+            transform: scale(1.05);
+            border: 2px solid white;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-bg">
+        <iframe src="https://www.youtube.com/embed/1EJojKpnBWs?autoplay=1&mute=1&controls=0&loop=1&playlist=1EJojKpnBWs&modestbranding=1&playsinline=1" title="Dance Tap Background" allow="autoplay; encrypted-media"></iframe>
+    </div>
+    <div class="video-overlay"></div>
+    <div class="noise"></div>
+    <div class="glow"></div>
 
-            .hero-art {
-                min-height: 520px;
-            }
+    <header class="container topbar card">
+        <a class="brand" href="#top" aria-label="Rhombit эхлэл">
+            <img src="Logo (1).png" alt="Rhombit logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+            <span class="fallback-logo" style="display:none;">R</span>
+        </a>
+        <nav aria-label="Үндсэн цэс">
+            <ul>
+                <li><a href="#problem">Асуудал</a></li>
+                <li><a href="#about">Төслийн тухай</a></li>
+                <li><a href="#how">Ажиллах зарчим</a></li>
+                <li><a href="#tech">Технологи</a></li>
+                <li><a href="#team">Баг</a></li>
+            </ul>
+        </nav>
+    </header>
 
-            .pad-wrap {
-                left: 50%;
-                top: 18px;
-                transform: translateX(-50%);
-            }
-
-            .logo{
-                color: rgba(0, 0, 70);
-                height: auto;
-                display: flex;
-                align-items: center;
-                justify-self: center;
-            }
-
-            .nav-head{
-                display: none;
-            }
-        }
-        @media (min-width:1250px) {
-            .nav-2, .tinynav{
-                display: none;
-            }
-        }
-        @media (max-width: 1250px) {
-            .nav-head, .tinynav{
-                display: none;
-            }
-        }
-        .nav-head a{
-            text-decoration: none;
-            color: white;
-            border-radius: 0px;
-            transition: all 0.5s;
-        }
-        .nav-head ul{
-            list-style-type: none;
-            display: flex;
-            gap: 50px;
-            justify-content: space-between;
-        }
-        .nav-head a:hover{
-            font-size: larger;
-            color:#090512;
-            background-color: white;
-            padding: 20px;
-            border-radius: 20px;
-            font-weight: 800;
-        }
-        #header{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .nav-2 a{
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            border-radius: 0px;
-            transition: all 0.5s;
-        }
-        .nav-2 ul{
-            list-style-type: none;
-            display: flex;
-            gap: 10px;
-            justify-content: space-between;
-        }
-        .nav-2 a:hover{
-            font-weight: 800;
-        }
-        a{
-            text-decoration: none;
-            color: white;
-            text-align: center;
-        }
-        </style>
-    </head>
-    <body>
-        <div class="video-bg">
-            <video width="640" height="360" autoplay muted loop>
-                <source src="【APPEND Lv38 Chart View】怪獣になりたい - I want to be a monster【Project Sekai Championship 2025】 - TootieJin (1080p).mp4" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-              
-        </div>
-
-            <div class="video-overlay"></div>
-            <div class="noise"></div>
-            <div class="glow"></div>
-
-        <div class="card" id="header">
-            <img src="Logo (1).png" alt="" class="logo" width="400">
-            <div class="nav-head">
-                <ul>
-                    <li><a href="#tsl">Төслийн тухай</a></li>
-                    <li><a href="">Веб тоглоом</a></li>
-                    <li><a href="gamesite.html">Тоглоом сайт</a></li>
-                    <li><a href="#bid">Бидний талаар</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="card" class="tinynav">
-            <div class="nav-2">
-                <ul>
-                    <li><a href="#tsl">Төслийн тухай</a></li>
-                    <li><a href="">Веб тоглоом</a></li>
-                    <li><a href="gamesite.html">Тоглоом сайт</a></li>
-                    <li><a href="#bid">Бидний талаар</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <section id="about">
-            <h2 class="section-title" style="text-align: center;">Төслийн тухай</h2>
-                <div class="grid-3" id="tsl">
-                    <div class="card">
-                        <h3>Зорилго</h3>
-                        <p>Arduino ашиглан бүжгийн хавтан хийж, электроник, программчлал, багийн хамтын ажиллагааны мэдлэгээ бататгах.</p>
-                    </div>
-                    <div class="card">
-                        <h3>Ажиллах зарчим</h3>
-                        <p>Хөлөөр гишгэхэд мэдрэгч дохио Arduino руу орж, компьютер түүнийг keyboard input шиг уншаад тоглоомд оноо өгнө.</p>
-                    </div>
-                    <div class="card">
-                        <h3>Ажиллах зарчим</h3>
-                    </div>
+    <main id="top">
+        <section class="container hero">
+            <div class="hero-copy card">
+                <span class="mini-tag">8A ангийн Rhombit төслийн танилцуулга</span>
+                <h1 class="main-title"><span class="gradient">Rhombit</span><br>Arduino бүжгийн хавтан</h1>
+                <p class="lead">Бид Dance Dance Revolution тоглоомоос санаа авч, Arduino Leonardo, Godot тоглоомын систем болон өөрсдийн хийсэн тавцанг ашиглан хөдөлгөөнтэй, хөгжимтэй веб/тоглоомын төсөл бүтээсэн.</p>
+                <div class="actions">
+                    <a class="btn primary" href="#how">Яаж ажилладгийг харах</a>
+                    <a class="btn ghost" href="#team">Багтай танилцах</a>
                 </div>
-        </section>
-        <section id="team">
-                <div class="section-head"  id="bid">
-                    <h2 class="section-title" style="text-align: center;">Багийн гишүүд</h2>
-                    <p class="section-sub"></p>
-                    </div>
-                    <div class="team">
-                    <a class="card member" href="">
-                        <div class="avatar">ШС</div>
-                        <h3>Ш.Саруул</h3>
-                        <div class="role">Тавцан хийх<br>Тайлан бичих<br>Веб хийх</div>
-                    </a>
-                    <a class="card member" href="">
-                        <div class="avatar">БН</div>
-                        <h3>Б.Наранбадрал</h3>
-                        <div class="role">Тоглоом хийх<br>Веб хийх<br>Тавцан хийх</div>
-                    </a>
-                    <a class="card member" href="gedo.html">
-                        <div class="avatar">ДГ</div>
-                        <h3>Д.Гэрэлт-Од</h3>
-                        <div class="role">Тавцан хийх<br>Бичлэг цуглуулах<br>Веб хийх</div>
-                    </a>
-                    <a class="card member" href="Narmandakh (1).html">
-                        <div class="avatar">ОН</div>
-                        <h3>О.Нармандах</h3>
-                        <div class="role">Тавцан хийх<br>Видео эвлүүлэх<br>Веб хийх</div>
-                    </a>
+            </div>
+            <div class="hero-art card" aria-label="Dance pad illustration">
+                <div class="dance-pad">
+                    <div class="tile blank"></div><div class="tile active">↑</div><div class="tile blank"></div>
+                    <div class="tile active">←</div><div class="tile">◆</div><div class="tile active">→</div>
+                    <div class="tile blank"></div><div class="tile active">↓</div><div class="tile blank"></div>
                 </div>
+            </div>
         </section>
-            <audio
-                id="music"
-                preload="auto"
-                crossorigin="anonymous"
-                src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8d6d58d4f.mp3?filename=future-bass-beat-14636.mp3">
-            </audio>
-    </body>
+
+        <section id="problem" class="container">
+            <div class="section-head">
+                <h2 class="section-title">Бид ямар асуудал олж харсан бэ?</h2>
+                <p class="section-sub">Орчин үеийн хүүхдүүд гар утас, компьютер их үзэж, гадаа тоглох нь багассанаас хөдөлгөөний дутагдалд орох асуудал нэмэгдэж байна. Тиймээс бид тоглоомыг хөдөлгөөнтэй хослуулах санааг сонгосон.</p>
+            </div>
+            <div class="grid-3">
+                <article class="card info-card"><div class="icon"></div><h3>Хөдөлгөөн багасах</h3><p>Дэлгэцийн хэрэглээ ихсэхээр идэвхтэй хөдөлгөөн хийх цаг багасдаг.</p></article>
+                <article class="card info-card"><div class="icon"></div><h3>Шийдлийн санаа</h3><p>Тоглоомын сонирхлыг ашиглан хүүхдүүдийг босож, хэмнэлтэй хөдөлгөх.</p></article>
+                <article class="card info-card"><div class="icon"></div><h3>DDR-ээс санаа авсан</h3><p>2000-аад онд алдартай байсан Dance Dance Revolution тоглоомын зарчмыг өөрсдийн хувилбараар бүтээсэн.</p></article>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <div class="section-head">
+                <h2 class="section-title">Төслийн тухай</h2>
+                <p class="section-sub">Төсөл нь хоёр үндсэн хэсгээс бүрдэнэ: бодитоор гишгэх тавцан болон Godot дээр хийсэн тоглоом.</p>
+            </div>
+            <div class="grid-3">
+                <article class="card info-card"><div class="icon"></div><h3>Зорилго</h3><p>Arduino ашиглан бүжгийн хавтан хийж, электроник, программчлал, багийн хамтын ажиллагааны мэдлэгээ бататгах.</p></article>
+                <article class="card info-card"><div class="icon"></div><h3>Бүрэлдэхүүн</h3><p>Мод, тугалган цаас, поликарбонат, утас, Arduino Leonardo болон Godot тоглоомын хэсгээс бүрдэнэ.</p></article>
+                <article class="card info-card"><div class="icon"></div><h3>Үр дүн</h3><p>Багаар ажиллах, Arduino холбох, кодны алгоритм, техник хангамжийн угсралтын талаар илүү ихийг сурсан.</p></article>
+            </div>
+        </section>
+
+        <section id="how" class="container">
+            <div class="section-head">
+                <h2 class="section-title">Яаж ашиглах вэ?</h2>
+                <p class="section-sub">Тавцанг компьютертой холбосны дараа дэлгэц дээр гарч буй сумнуудын хөдөлгөөн, хөгжмийн хэмнэлд тааруулан харгалзах хэсэг дээр гишгэнэ.</p>
+            </div>
+            <div class="grid-2 steps">
+                <article class="card info-card step"><h3>Тавцан дээр гишгэнэ</h3><p>Хөлөөр даралт өгөхөд дээд болон доод тугалган цаас хоорондоо хүрч, цахилгаан хэлхээ холбогдоно.</p></article>
+                <article class="card info-card step"><h3>Arduino дохио уншина</h3><p>Digital pin тухайн даралтыг мэдэрч, дарагдсан эсэхийг LOW/HIGH төлөвөөр ялгана.</p></article>
+                <article class="card info-card step"><h3>Keyboard input илгээнэ</h3><p>Arduino Leonardo USB-ээр W, A, S, D товч дарагдсан мэт компьютер лүү дохио илгээдэг.</p></article>
+                <article class="card info-card step"><h3>Тоглоом оноо өгнө</h3><p>Godot тоглоом сум болон хөгжмийн хэмнэлтэй таарсан гишгэлтийг шалгаж оноо өгнө.</p></article>
+            </div>
+        </section>
+
+        <section id="structure" class="container">
+            <div class="section-head">
+                <h2 class="section-title">Тавцангийн бүтэц</h2>
+                <p class="section-sub">Танилцуулгад дурдсан үндсэн давхаргуудыг сайт дээр илүү ойлгомжтойгоор харууллаа.</p>
+            </div>
+            <div class="card info-card">
+                <div class="layer-list">
+                    <div class="layer"><span class="highlight">1. Поликарбонат:</span> дээд хамгаалалтын хэсэг</div>
+                    <div class="layer"><span class="highlight">2. Тугалган цаас:</span> дарахад хүрэлцдэг мэдрэгчийн нэг тал</div>
+                    <div class="layer"><span class="highlight">3. Тугалган цаас:</span> хэлхээ холбох доод тал</div>
+                    <div class="layer"><span class="highlight">4. Мод:</span> тавцангийн суурь, бат бөх хэсэг</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech" class="container">
+            <div class="section-head">
+                <h2 class="section-title">Технологи</h2>
+                <p class="section-sub">Төслийг хийхдээ Arduino Leonardo болон Godot game engine ашигласан.</p>
+            </div>
+            <div class="grid-2">
+                <article class="card info-card"><div class="icon"></div><h3>Arduino Leonardo</h3><p>ATmega32U4 дээр суурилсан микроконтроллерийн самбар бөгөөд USB холболтоор гар, хулганыг дуурайх боломжтой.</p></article>
+                <article class="card info-card"><div class="icon"></div><h3>Godot Engine</h3><p>2D болон 3D тоглоом бүтээхэд зориулагдсан, GDScript, C#, C++ ашигладаг, нээлттэй эх сурвалж бүхий үнэ төлбөргүй тоглоомын систем.</p></article>
+            </div>
+            <div class="card info-card" style="margin-top:18px;">
+                <h3>Кодны санаа</h3>
+                <p>Код нь 4 товчийг уншиж, дарагдсан үед Keyboard.write() ашиглан W, A, S, D дохионы аль нэгийг илгээнэ. Prev төлөв ашигласнаар товчийг удаан дарсан ч давхар дохио илгээхгүй.</p>
+                <pre class="code-box"><code>if (buttonState == LOW && previousState == HIGH) {
+    Keyboard.write('W');
+}
+previousState = buttonState;</code></pre>
+            </div>
+        </section>
+
+        <section id="challenge" class="container">
+            <div class="section-head">
+                <h2 class="section-title">Тулгарсан асуудал ба шийдэл</h2>
+            </div>
+            <div class="grid-2">
+                <article class="card info-card"><h3>Асуудал</h3><p>Arduino Uno ашиглахад компьютертой холбох асуудал гарсан. Мөн Godot дээр анх удаа ажиллаж байсан тул олон удаа дахин эхлүүлэх шаардлагатай болсон.</p></article>
+                <article class="card info-card"><h3>Шийдэл</h3><p>Arduino Uno-ийн оронд Arduino Leonardo ашиглаж, Godot дээрх алдаануудыг туршиж зассаар төслөө ажиллуулж чадсан.</p></article>
+            </div>
+        </section>
+
+        <section id="future" class="container">
+            <div class="section-head">
+                <h2 class="section-title">Цаашид хөгжүүлэх санаа</h2>
+                <p class="section-sub">Нэст сургуулийн сурагчдын бугуйвчийг уншуулахад автоматаар өөрийн аккаунттай болж, сурагчид хоорондоо оноогоор өрсөлдөх боломжтой болгоно.</p>
+            </div>
+        </section>
+
+        <section id="team" class="container">
+            <div class="section-head">
+                <h2 class="section-title">Багийн гишүүд</h2>
+                <p class="section-sub">Танилцуулгын мэдээлэл дээр үндэслэн гишүүдийн үүргийг цэгцэллээ.</p>
+            </div>
+            <div class="grid-4">
+                <a href="sara.html"><article class="card member"><div class="avatar">ШС</div><h3>Ш.Саруул</h3><div class="role">Тавцан хийх<br>Тайлан бичих<br>Веб хийх</div></article></a>
+                <a href="nara.html"><article class="card member"><div class="avatar">БН</div><h3>Б.Наранбадрал</h3><div class="role">Тоглоом хийх<br>Веб хийх<br>Тавцан хийх</div></article></a>
+                <a href="gege.html"><article class="card member"><div class="avatar">ДГ</div><h3>Д.Гэрэлт-Од</h3><div class="role">Тавцан хийх<br>Бичлэг цуглуулах<br>Веб хийх</div></article></a>
+                <a href="narka.html"><article class="card member"><div class="avatar">ОН</div><h3>О.Нармандах</h3><div class="role">Тавцан хийх<br>Видео эвлүүлэх<br>Веб хийх</div></article></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>2026 он · Rhombit 8A</p>
+    </footer>
+
+    <audio id="music" preload="auto" crossorigin="anonymous" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8d6d58d4f.mp3?filename=future-bass-beat-14636.mp3"></audio>
+</body>
 </html>
