@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Narmandakh — Personal Portfolio</title>
+  <meta name="description" content="Personal portfolio website for Narmandakh — student, creative learner, future developer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08080d;
+      --bg-soft: #10111b;
+      --card: rgba(255,255,255,0.08);
+      --card-strong: rgba(255,255,255,0.13);
+      --text: #f7f4ec;
+      --muted: rgba(247,244,236,0.72);
+      --line: rgba(247,244,236,0.16);
+      --accent: #9DC183;
+      --accent-2: #f1ffe7;
+      --accent-3: #9DC183;
+      --shadow: 0 24px 80px rgba(0,0,0,0.35);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(215,255,95,0.16), transparent 28%),
+        radial-gradient(circle at 82% 8%, rgba(168,140,255,0.18), transparent 32%),
+        radial-gradient(circle at 58% 82%, rgba(255,140,198,0.13), transparent 36%),
+        var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: 1.1rem;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--accent-2);
+      color: #111;
+      box-shadow: 0 0 0 8px rgba(215,255,95,0.08);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-links a {
+      padding: 10px 15px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      border-radius: 999px;
+      transition: 180ms ease;
+    }
+
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.08); }
+
+    .cta-small {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      background: var(--text);
+      color: #111;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      transition: 180ms ease;
+    }
+
+    .cta-small:hover { transform: translateY(-2px); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: stretch;
+      min-height: 660px;
+      padding: 44px 0 74px;
+    }
+
+    .hero-copy {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: clamp(30px, 5vw, 62px);
+      background: linear-gradient(145deg, rgba(255,255,255,0.11), rgba(255,255,255,0.035));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      background: var(--accent-2);
+      filter: blur(90px);
+      opacity: 0.12;
+      right: -70px;
+      bottom: -80px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.9rem;
+      background: rgba(0,0,0,0.16);
+    }
+
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 26px var(--accent); }
+
+    h1 {
+      font-size: clamp(3.4rem, 9vw, 8.6rem);
+      line-height: 0.88;
+      letter-spacing: -0.09em;
+      margin: 32px 0 24px;
+      max-width: 850px;
+    }
+
+    .lead {
+      font-size: clamp(1.06rem, 2vw, 1.45rem);
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 38px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 56px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 850;
+      border: 1px solid var(--line);
+      transition: 180ms ease;
+    }
+
+    .button.primary { background: var(--accent); color: #10110c; border-color: transparent; }
+    .button.secondary { background: rgba(255,255,255,0.08); color: var(--text); }
+    .button:hover { transform: translateY(-2px); }
+
+    .hero-panel {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 28px;
+    }
+
+    .portrait-card {
+      min-height: 460px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      position: relative;
+      background:
+        linear-gradient(160deg, rgba(168,140,255,0.28), transparent 42%),
+        linear-gradient(20deg, rgba(215,255,95,0.18), transparent 55%),
+        #141521;
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+    }
+
+    .avatar-orb {
+      width: min(72%, 320px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.18) 22%, transparent 24%),
+        linear-gradient(135deg, var(--accent-2), var(--accent-3) 52%, var(--accent));
+      color: #07070a;
+      font-size: clamp(5rem, 12vw, 9rem);
+      font-weight: 950;
+      letter-spacing: -0.12em;
+      box-shadow: 0 28px 90px rgba(0,0,0,0.35), inset 0 0 0 12px rgba(255,255,255,0.14);
+    }
+
+    .floating-tag {
+      position: absolute;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid var(--line);
+      color: var(--text);
+      backdrop-filter: blur(16px);
+      font-weight: 800;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.22);
+    }
+
+    .tag-1 { left: 28px; top: 30px; }
+    .tag-2 { right: 28px; bottom: 34px; }
+    .tag-3 { left: 36px; bottom: 98px; }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px 18px;
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(14px);
+    }
+
+    .stat strong { display: block; font-size: 1.45rem; margin-bottom: 6px; }
+    .stat span { color: var(--muted); font-size: 0.9rem; }
+
+    .marquee {
+      overflow: hidden;
+      border-block: 1px solid var(--line);
+      padding: 22px 0;
+      margin-bottom: 74px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      gap: 26px;
+      animation: scroll 18s linear infinite;
+      font-size: clamp(1.8rem, 4vw, 4rem);
+      font-weight: 950;
+      letter-spacing: -0.07em;
+    }
+
+    .marquee span:nth-child(even) { color: transparent; -webkit-text-stroke: 1px rgba(247,244,236,0.55); }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .section { padding: 72px 0; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .section-kicker { color: var(--accent-2); font-weight: 900; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.78rem; }
+    h2 { margin: 8px 0 0; font-size: clamp(2.4rem, 5vw, 5.2rem); line-height: 0.96; letter-spacing: -0.08em; }
+    .section-head p { margin: 0; color: var(--muted); max-width: 390px; line-height: 1.55; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.105), rgba(255,255,255,0.04));
+      min-height: 260px;
+      box-shadow: 0 18px 64px rgba(0,0,0,0.22);
+      transition: 200ms ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover { transform: translateY(-6px); border-color: rgba(215,255,95,0.38); }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      right: -60px;
+      top: -60px;
+      background: var(--accent-2);
+      opacity: 0.09;
+      filter: blur(18px);
+    }
+
+    .card-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      background: var(--card-strong);
+      font-size: 1.7rem;
+      margin-bottom: 32px;
+    }
+
+    .card h3 { font-size: 1.45rem; margin: 0 0 12px; letter-spacing: -0.04em; }
+    .card p, .card li { color: var(--muted); line-height: 1.6; }
+    .card ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+
+    .about-large {
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(215,255,95,0.18), transparent 30%),
+        linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+    }
+
+    .about-large p { font-size: clamp(1.2rem, 2.2vw, 2rem); line-height: 1.35; color: var(--text); letter-spacing: -0.045em; max-width: 800px; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .pill { border: 1px solid var(--line); border-radius: 999px; padding: 10px 14px; color: var(--muted); background: rgba(255,255,255,0.05); font-weight: 700; }
+
+    .goal-card {
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        linear-gradient(135deg, rgba(215,255,95,0.18), rgba(168,140,255,0.12)),
+        rgba(255,255,255,0.06);
+    }
+
+    .goal-card h3 { font-size: clamp(2rem, 4vw, 4rem); line-height: 0.95; }
+
+    .connect {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .social-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .social-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
+      font-weight: 850;
+      transition: 180ms ease;
+    }
+
+    .social-link:hover { transform: translateX(6px); background: rgba(215,255,95,0.13); }
+
+    footer {
+      padding: 48px 0;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .hero, .connect { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+      .nav-links { display: none; }
+      .mini-stats { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .page { width: min(100% - 22px, 1180px); }
+      .hero-copy, .card { padding: 24px; border-radius: 26px; }
+      .portrait-card { min-height: 380px; }
+      .floating-tag { font-size: 0.82rem; }
+      .hero-actions { flex-direction: column; }
+      .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="page">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Narmandakh home">
+        <span class="brand-mark">S</span>
+        <span>Saruul</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Project Site</a>
+        <a href="#about">About</a>
+        <a href="#hobbies">Hobbies</a>
+        <a href="#goals">Abilities</a>
+        <a href="#connect">Connect</a>
+      </div>
+    </nav>
+
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Learner • Creator • Builder</div>
+          <h1>Hello!</h1>
+          <p class="lead">Hi, I’m Saruul. I’m a student who enjoys music, drawing and gaming.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#about">Explore Portfolio</a>
+            <a class="button secondary" href="#connect">Connect With Me</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Profile highlights">
+        <div class="portrait-card">
+          <div class="avatar-orb" aria-label="Narmandakh initials">S</div>
+        </div>
+        <div class="mini-stats">
+          <div class="stat"><strong>3</strong><span>Core hobbies</span></div>
+          <div class="stat"><strong>2026</strong><span>Portfolio launch</span></div>
+          <div class="stat"><strong>♫</strong><span>Musicholic</span></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Music</span><span>Creativity</span><span>Code</span><span>Gaming</span><span>Web</span><span>Ideas</span>
+      <span>Music</span><span>Creativity</span><span>Code</span><span>Gaming</span><span>Web</span><span>Ideas</span>
+    </div>
+  </div>
+
+  <main class="page">
+    <section class="section" id="about">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">About Me</div>
+          <h2>About me</h2>
+        </div>
+      </div>
+      <div class="card about-large">
+        <p>Hi! I’m a student from Nest Education IT school who is interested in music and creativity.I'm 14 years old .And I really love drawing.</p>
+        <div class="pill-row" aria-label="Skills and interests">
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">Web Design</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="hobbies">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Hobbies</div>
+          <h2>Things I enjoy.</h2>
+        </div>
+        <p>These interests shape my creativity, problem-solving, and learning style.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <div class="card-icon">✡</div>
+          <h3>Playing Guitar</h3>
+          <p>Music helps me stay creative, focused, and expressive.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">꙰</div>
+          <h3>Gaming</h3>
+          <p>Games inspire strategy, imagination, and new ideas for digital experiences.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">☪</div>
+          <h3>Designing</h3>
+          <p>I’m learning how to turn ideas into good UI/UX designs.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="goals">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Abilities
+
+          </div>
+          <h2>What can I do?</h2>
+        </div>
+        <p>I build, learn, and create things with code.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card goal-card">
+          <div class="card-icon">※</div>
+          <h3>Draw and design</h3>
+          <p>I really like designing and making handmade gifts.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">§</div>
+          <h3>Coding</h3>
+          <ul>
+            <li>I know HTML, CSS, and C.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section connect" id="connect">
+      <div class="card">
+        <div class="section-kicker">Connect</div>
+        <h2>Let’s stay in touch.</h2>
+      </div>
+      <div class="card social-list" aria-label="Social links">
+        <p>nest23301008@nhs.edu.mn</p>
+        <p>94931913</p>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 Saruul</span>
+    </footer>
+  </main>
+</body>
+</html>
